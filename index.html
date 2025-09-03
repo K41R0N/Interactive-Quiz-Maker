@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-btn" class="mobile-menu-btn"></button>
+    
+    <!-- Mobile Quiz Overlay -->
+    <div id="mobile-quiz-overlay" class="mobile-quiz-overlay">
+        <div class="mobile-quiz-content">
+            <div class="mobile-quiz-header">
+                <h2>Your Quizzes</h2>
+                <button id="mobile-close-btn" class="mobile-close-btn">×</button>
+            </div>
+            <div class="mobile-desktop-notice">
+                <h3>Desktop Only Feature</h3>
+                <p>You can only add new quizzes when using the desktop version of this app. Use your computer to create and upload new quiz files.</p>
+            </div>
+            <div id="mobile-quiz-list" class="mobile-quiz-list">
+                <!-- Mobile quiz items will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
     <!-- Sidebar -->
     <div id="sidebar" class="sidebar">
         <div class="sidebar-header">

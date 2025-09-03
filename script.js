@@ -55,6 +55,21 @@ class QuizApp {
             document.getElementById('sidebar').classList.toggle('collapsed');
         });
 
+        // Mobile menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            this.showMobileMenu();
+        });
+
+        document.getElementById('mobile-close-btn').addEventListener('click', () => {
+            this.hideMobileMenu();
+        });
+
+        document.getElementById('mobile-quiz-overlay').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('mobile-quiz-overlay')) {
+                this.hideMobileMenu();
+            }
+        });
+
         // Add quiz modal
         document.getElementById('add-quiz-btn').addEventListener('click', () => {
             this.showAddQuizModal();
@@ -167,6 +182,52 @@ class QuizApp {
         document.getElementById('quiz-file-input').value = '';
         document.getElementById('file-preview').style.display = 'none';
         document.getElementById('upload-quiz').disabled = true;
+    }
+
+    // Mobile Menu Management
+    showMobileMenu() {
+        document.getElementById('mobile-quiz-overlay').classList.add('active');
+        this.updateMobileQuizList();
+        // Prevent body scrolling when modal is open
+        document.body.style.overflow = 'hidden';
+    }
+
+    hideMobileMenu() {
+        document.getElementById('mobile-quiz-overlay').classList.remove('active');
+        // Restore body scrolling
+        document.body.style.overflow = '';
+    }
+
+    updateMobileQuizList() {
+        const mobileQuizList = document.getElementById('mobile-quiz-list');
+        mobileQuizList.innerHTML = '';
+
+        if (this.quizzes.length === 0) {
+            const emptyMessage = document.createElement('div');
+            emptyMessage.style.cssText = `
+                text-align: center;
+                padding: 2rem;
+                color: var(--color-gray-600);
+                font-style: italic;
+            `;
+            emptyMessage.textContent = 'No quizzes available. Use the desktop version to add quizzes.';
+            mobileQuizList.appendChild(emptyMessage);
+            return;
+        }
+
+        this.quizzes.forEach((quiz, index) => {
+            const mobileQuizItem = document.createElement('div');
+            mobileQuizItem.className = 'mobile-quiz-item';
+            mobileQuizItem.innerHTML = `
+                <h4>${quiz.title}</h4>
+                <p>${quiz.questions.length} questions</p>
+            `;
+            mobileQuizItem.addEventListener('click', () => {
+                this.hideMobileMenu();
+                this.startQuiz(index);
+            });
+            mobileQuizList.appendChild(mobileQuizItem);
+        });
     }
 
     // File Handling
