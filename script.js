@@ -234,12 +234,28 @@ class QuizApp {
             const quizItem = document.createElement('div');
             quizItem.className = 'quiz-item';
             quizItem.innerHTML = `
-                <h4>${quiz.title}</h4>
-                <p>${quiz.questions.length} questions</p>
+                <div class="quiz-item-content">
+                    <h4>${quiz.title}</h4>
+                    <p>${quiz.questions.length} questions</p>
+                </div>
+                <button class="delete-quiz-btn" data-index="${index}" title="Delete quiz">
+                    🗑️
+                </button>
             `;
-            quizItem.addEventListener('click', () => {
+            
+            // Add click listener to the content area (not the whole item)
+            const content = quizItem.querySelector('.quiz-item-content');
+            content.addEventListener('click', () => {
                 this.startQuiz(index);
             });
+            
+            // Add delete functionality
+            const deleteBtn = quizItem.querySelector('.delete-quiz-btn');
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent triggering quiz start
+                this.confirmDeleteQuiz(index);
+            });
+            
             quizList.appendChild(quizItem);
         });
     }
@@ -397,7 +413,7 @@ class QuizApp {
                 color: var(--color-gray-600);
                 font-style: italic;
             `;
-            emptyMessage.textContent = 'No quizzes available. Use the desktop version to add quizzes.';
+            emptyMessage.textContent = 'No quizzes available. Tap "Add New Quiz" to create your first quiz!';
             mobileQuizList.appendChild(emptyMessage);
             return;
         }
@@ -406,15 +422,62 @@ class QuizApp {
             const mobileQuizItem = document.createElement('div');
             mobileQuizItem.className = 'mobile-quiz-item';
             mobileQuizItem.innerHTML = `
-                <h4>${quiz.title}</h4>
-                <p>${quiz.questions.length} questions</p>
+                <div class="mobile-quiz-item-content">
+                    <h4>${quiz.title}</h4>
+                    <p>${quiz.questions.length} questions</p>
+                </div>
+                <button class="delete-quiz-btn mobile-delete-btn" data-index="${index}" title="Delete quiz">
+                    🗑️
+                </button>
             `;
-            mobileQuizItem.addEventListener('click', () => {
+            
+            // Add click listener to the content area (not the whole item)
+            const content = mobileQuizItem.querySelector('.mobile-quiz-item-content');
+            content.addEventListener('click', () => {
                 this.hideMobileMenu();
                 this.startQuiz(index);
             });
+            
+            // Add delete functionality
+            const deleteBtn = mobileQuizItem.querySelector('.delete-quiz-btn');
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent triggering quiz start
+                this.confirmDeleteQuiz(index);
+            });
+            
             mobileQuizList.appendChild(mobileQuizItem);
         });
+    }
+
+    // Quiz Management
+    confirmDeleteQuiz(index) {
+        const quiz = this.quizzes[index];
+        const confirmation = confirm(`Are you sure you want to delete "${quiz.title}"?\n\nThis action cannot be undone.`);
+        
+        if (confirmation) {
+            this.deleteQuiz(index);
+        }
+    }
+
+    deleteQuiz(index) {
+        // Remove quiz from array
+        this.quizzes.splice(index, 1);
+        
+        // Update storage
+        this.saveToStorage();
+        
+        // Update UI
+        this.updateUI();
+        this.updateMobileQuizList();
+        
+        // Show success message
+        const deletedQuizTitle = this.quizzes[index] ? this.quizzes[index].title : 'Quiz';
+        
+        // If user is currently taking the deleted quiz, return to dashboard
+        if (this.currentQuiz && this.quizzes.indexOf(this.currentQuiz) === -1) {
+            this.showView('dashboard');
+            this.currentQuiz = null;
+        }
     }
 
     // File Handling

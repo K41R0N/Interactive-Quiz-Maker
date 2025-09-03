@@ -393,11 +393,19 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid var(--color-gray-200);
     border-radius: var(--radius-xl);
-    cursor: pointer;
     transition: all var(--transition-normal);
     position: relative;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+}
+
+.quiz-item-content {
+    flex: 1;
+    cursor: pointer;
 }
 
 .quiz-item::before {
@@ -452,6 +460,42 @@ body {
     color: var(--color-gray-600);
     font-weight: 500;
     opacity: 0.8;
+}
+
+/* Delete Quiz Button */
+.delete-quiz-btn {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--color-gray-400);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2);
+    font-size: var(--text-lg);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.quiz-item:hover .delete-quiz-btn {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.delete-quiz-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: var(--color-error-600);
+    transform: scale(1.1);
+}
+
+.delete-quiz-btn:active {
+    transform: scale(0.95);
+    background: rgba(239, 68, 68, 0.2);
 }
 
 /* Academic Main Content Layout */
@@ -2018,9 +2062,17 @@ body {
     background: rgba(255, 255, 255, 0.7);
     border: 1px solid var(--color-gray-200);
     border-radius: var(--radius-xl);
-    cursor: pointer;
     transition: all var(--transition-normal);
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+}
+
+.mobile-quiz-item-content {
+    flex: 1;
+    cursor: pointer;
 }
 
 .mobile-quiz-item::before {
@@ -2061,6 +2113,20 @@ body {
     font-size: var(--text-sm);
     color: var(--color-gray-600);
     margin: 0;
+}
+
+/* Mobile Delete Button */
+.mobile-delete-btn {
+    opacity: 1 !important; /* Always visible on mobile for better touch interaction */
+    transform: scale(1) !important;
+    width: 40px;
+    height: 40px;
+    font-size: var(--text-xl);
+}
+
+.mobile-delete-btn:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
 }
 
 .mobile-add-quiz-btn {
