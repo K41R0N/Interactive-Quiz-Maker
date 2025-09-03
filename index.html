@@ -10,6 +10,9 @@
     <!-- Mobile Menu Button -->
     <button id="mobile-menu-btn" class="mobile-menu-btn"></button>
     
+    <!-- Help Button -->
+    <button id="help-btn" class="help-btn">?</button>
+    
     <!-- Mobile Quiz Overlay -->
     <div id="mobile-quiz-overlay" class="mobile-quiz-overlay">
         <div class="mobile-quiz-content">
@@ -17,10 +20,10 @@
                 <h2>Your Quizzes</h2>
                 <button id="mobile-close-btn" class="mobile-close-btn">×</button>
             </div>
-            <div class="mobile-desktop-notice">
-                <h3>Desktop Only Feature</h3>
-                <p>You can only add new quizzes when using the desktop version of this app. Use your computer to create and upload new quiz files.</p>
-            </div>
+            <button id="mobile-add-quiz-btn" class="mobile-add-quiz-btn">
+                <span class="add-icon">+</span>
+                <span class="add-text">Add New Quiz</span>
+            </button>
             <div id="mobile-quiz-list" class="mobile-quiz-list">
                 <!-- Mobile quiz items will be dynamically added here -->
             </div>
@@ -50,6 +53,38 @@
                 <h1>Interactive Quiz Study Tool</h1>
                 <p class="subtitle">Track your progress and master any subject with interactive quizzes</p>
             </header>
+            
+            <!-- Empty State Helper -->
+            <div id="empty-state-helper" class="empty-state-helper" style="display: none;">
+                <div class="empty-state-content">
+                    <h3>🎓 Ready to Start Learning?</h3>
+                    <p>You don't have any quizzes yet. Let's create your first one!</p>
+                    <div class="empty-state-steps">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <div class="step-content">
+                                <strong>Get the AI Prompt</strong>
+                                <small>Click the ? button to copy our template</small>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <div class="step-content">
+                                <strong>Use Any AI</strong>
+                                <small>Paste into ChatGPT, Claude, or Gemini</small>
+                            </div>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <div class="step-content">
+                                <strong>Create Your Quiz</strong>
+                                <small>Click "Add New Quiz" and paste the result</small>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="empty-state-help" class="control-btn primary">? Get Instructions</button>
+                </div>
+            </div>
 
             <div class="stats-container">
                 <div class="stat-card">
@@ -144,21 +179,141 @@
                 <button id="close-modal" class="close-btn">×</button>
             </div>
             <div class="modal-body">
-                <p>Upload a JSON file containing your quiz questions:</p>
-                <div class="file-upload-area">
-                    <input type="file" id="quiz-file-input" accept=".json" />
-                    <label for="quiz-file-input" class="file-upload-label">
-                        <span>Choose JSON file</span>
-                        <small>or drag and drop here</small>
-                    </label>
+                <p>Add a new quiz using one of the methods below:</p>
+                
+                <!-- Tab Navigation -->
+                <div class="upload-tabs">
+                    <button id="file-tab" class="upload-tab active" data-tab="file">📁 Upload File</button>
+                    <button id="paste-tab" class="upload-tab" data-tab="paste">📋 Paste JSON</button>
                 </div>
-                <div id="file-preview" class="file-preview" style="display: none;">
-                    <p>File selected: <span id="file-name"></span></p>
+                
+                <!-- File Upload Tab -->
+                <div id="file-upload-section" class="upload-section active">
+                    <div class="file-upload-area">
+                        <input type="file" id="quiz-file-input" accept=".json" />
+                        <label for="quiz-file-input" class="file-upload-label">
+                            <span>Choose JSON file</span>
+                            <small>or drag and drop here</small>
+                        </label>
+                    </div>
+                    <div id="file-preview" class="file-preview" style="display: none;">
+                        <p>File selected: <span id="file-name"></span></p>
+                    </div>
+                </div>
+                
+                <!-- JSON Paste Tab -->
+                <div id="json-paste-section" class="upload-section">
+                    <div class="json-paste-area">
+                        <label for="json-paste-input">Paste your quiz JSON here:</label>
+                        <textarea id="json-paste-input" placeholder='Paste your JSON here, for example:
+{
+  "title": "Sample Quiz",
+  "questions": [
+    {
+      "question": "What is 2 + 2?",
+      "options": ["3", "4", "5", "6"],
+      "correct_answer": "4"
+    }
+  ]
+}'></textarea>
+                        <div class="json-validation-info">
+                            <small>💡 Tip: Copy JSON from your text editor or another quiz tool</small>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button id="cancel-upload" class="control-btn secondary">Cancel</button>
                 <button id="upload-quiz" class="control-btn primary" disabled>Upload Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome/Instructions Modal -->
+    <div id="welcome-modal" class="modal welcome-modal">
+        <div class="modal-content welcome-content">
+            <div class="modal-header">
+                <h3>Welcome to Interactive Quiz Study Tool</h3>
+                <button id="close-welcome" class="close-btn">×</button>
+            </div>
+            <div class="modal-body welcome-body">
+                <div class="welcome-section">
+                    <h4>🎯 How This Works</h4>
+                    <ol class="instruction-list">
+                        <li><strong>Get the AI Prompt:</strong> Copy our template below to create quiz questions</li>
+                        <li><strong>Use Any AI:</strong> Paste into ChatGPT, Claude, Gemini, or any LLM</li>
+                        <li><strong>Add Your Content:</strong> Replace the placeholder with your study material</li>
+                        <li><strong>Generate Quiz:</strong> The AI will create JSON-formatted questions</li>
+                        <li><strong>Upload & Study:</strong> Paste the JSON here and start learning!</li>
+                    </ol>
+                </div>
+                
+                <div class="welcome-section">
+                    <h4>📋 LLM Prompt Template</h4>
+                    <p>Copy this prompt and use it with any AI to generate quiz questions:</p>
+                    <div class="prompt-container">
+                        <textarea id="llm-prompt" readonly>You are an educational expert creating quiz questions for studying any subject. Based on the study material I provide, generate a comprehensive quiz in JSON format.
+
+**Requirements:**
+1. Create 8-12 multiple-choice questions based on the provided material
+2. Each question should have 4 answer options (A, B, C, D)
+3. Only ONE answer should be correct per question
+4. Questions should test understanding, not just memorization
+5. Include a mix of difficulty levels (basic recall, application, analysis)
+6. Focus on the most important concepts and practical applications
+
+**JSON Structure Required:**
+{
+  "title": "Descriptive Quiz Title Here",
+  "questions": [
+    {
+      "question": "Clear, specific question text here?",
+      "options": [
+        "First answer option",
+        "Second answer option", 
+        "Third answer option",
+        "Fourth answer option"
+      ],
+      "correct_answer": "Exact text of the correct answer from options above",
+      "explanation_prompt": "Brief prompt to guide student's self-explanation"
+    }
+  ]
+}
+
+**Important Guidelines:**
+- The "correct_answer" field must EXACTLY match one of the options in the "options" array
+- Questions should be clear and unambiguous
+- Avoid "all of the above" or "none of the above" options
+- Include relevant terminology and concepts from the subject area
+- Make incorrect options plausible but clearly wrong to an informed student
+- Keep questions focused on the most important concepts from the material
+
+**Study Material:**
+[PASTE YOUR STUDY MATERIAL HERE - can be text from textbooks, PDFs, lecture notes, online articles, course materials, etc.]
+
+Please generate the quiz in the exact JSON format specified above.</textarea>
+                        <button id="copy-prompt" class="copy-btn">📋 Copy Prompt</button>
+                    </div>
+                </div>
+                
+                <div class="welcome-section">
+                    <h4>💡 Pro Tips</h4>
+                    <ul class="tips-list">
+                        <li><strong>Quality Material:</strong> Include definitions, key concepts, and context</li>
+                        <li><strong>Mix Difficulty:</strong> Ask for basic, application, and analysis questions</li>
+                        <li><strong>Review Output:</strong> Always check that the JSON is valid before uploading</li>
+                        <li><strong>Study Smart:</strong> Use the explanation field to practice reasoning</li>
+                    </ul>
+                </div>
+                
+                <div class="welcome-section quick-start">
+                    <h4>🚀 Quick Start</h4>
+                    <p>Ready to create your first quiz? Click "Get Started" and we'll show you where to paste your AI-generated JSON!</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="skip-welcome" class="control-btn secondary">Skip for Now</button>
+                <button id="get-started" class="control-btn primary">Get Started!</button>
             </div>
         </div>
     </div>

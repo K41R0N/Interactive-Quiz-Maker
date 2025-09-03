@@ -21,6 +21,19 @@ class QuizApp {
         this.setupEventListeners();
         this.updateUI();
         this.generateAttendanceGrid();
+        this.checkFirstTimeUser();
+    }
+
+    checkFirstTimeUser() {
+        const hasSeenWelcome = localStorage.getItem('welcomeModalSeen');
+        const hasQuizzes = this.quizzes.length > 0;
+        
+        // Show welcome modal for first-time users or if they have no quizzes
+        if (!hasSeenWelcome || !hasQuizzes) {
+            setTimeout(() => {
+                this.showWelcomeModal();
+            }, 500); // Small delay for better UX
+        }
     }
 
     // Local Storage Management
@@ -70,6 +83,41 @@ class QuizApp {
             }
         });
 
+        // Welcome/Help modal
+        document.getElementById('help-btn').addEventListener('click', () => {
+            this.showWelcomeModal();
+        });
+
+        document.getElementById('close-welcome').addEventListener('click', () => {
+            this.hideWelcomeModal();
+        });
+
+        document.getElementById('skip-welcome').addEventListener('click', () => {
+            this.hideWelcomeModal();
+        });
+
+        document.getElementById('get-started').addEventListener('click', () => {
+            this.hideWelcomeModal();
+            this.showAddQuizModal();
+            this.switchUploadTab('paste'); // Direct to paste tab
+        });
+
+        document.getElementById('copy-prompt').addEventListener('click', () => {
+            this.copyPromptToClipboard();
+        });
+
+        // Empty state helper
+        document.getElementById('empty-state-help').addEventListener('click', () => {
+            this.showWelcomeModal();
+        });
+
+        // Mobile add quiz button
+        document.getElementById('mobile-add-quiz-btn').addEventListener('click', () => {
+            this.hideMobileMenu();
+            this.showAddQuizModal();
+            this.switchUploadTab('paste'); // Direct to paste tab on mobile
+        });
+
         // Add quiz modal
         document.getElementById('add-quiz-btn').addEventListener('click', () => {
             this.showAddQuizModal();
@@ -94,6 +142,20 @@ class QuizApp {
 
         document.getElementById('upload-quiz').addEventListener('click', () => {
             this.uploadQuiz();
+        });
+
+        // Upload tabs
+        document.getElementById('file-tab').addEventListener('click', () => {
+            this.switchUploadTab('file');
+        });
+
+        document.getElementById('paste-tab').addEventListener('click', () => {
+            this.switchUploadTab('paste');
+        });
+
+        // JSON paste input
+        document.getElementById('json-paste-input').addEventListener('input', (e) => {
+            this.handleJsonPaste(e.target.value);
         });
 
         // Navigation
@@ -144,6 +206,18 @@ class QuizApp {
     updateUI() {
         this.updateStats();
         this.updateQuizList();
+        this.updateEmptyState();
+    }
+
+    updateEmptyState() {
+        const emptyStateHelper = document.getElementById('empty-state-helper');
+        const hasQuizzes = this.quizzes.length > 0;
+        
+        if (hasQuizzes) {
+            emptyStateHelper.style.display = 'none';
+        } else {
+            emptyStateHelper.style.display = 'block';
+        }
     }
 
     updateStats() {
@@ -174,14 +248,127 @@ class QuizApp {
     showAddQuizModal() {
         document.getElementById('add-quiz-modal').classList.add('active');
         document.getElementById('modal-overlay').classList.add('active');
+        
+        // Auto-switch to paste tab on mobile
+        if (window.innerWidth <= 768) {
+            this.switchUploadTab('paste');
+        }
     }
 
     hideAddQuizModal() {
         document.getElementById('add-quiz-modal').classList.remove('active');
         document.getElementById('modal-overlay').classList.remove('active');
         document.getElementById('quiz-file-input').value = '';
+        document.getElementById('json-paste-input').value = '';
         document.getElementById('file-preview').style.display = 'none';
         document.getElementById('upload-quiz').disabled = true;
+        // Reset to file tab
+        this.switchUploadTab('file');
+    }
+
+    // Upload Tab Management
+    switchUploadTab(tabName) {
+        // Update tab buttons
+        document.querySelectorAll('.upload-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        document.getElementById(`${tabName}-tab`).classList.add('active');
+
+        // Update sections
+        document.querySelectorAll('.upload-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(`${tabName === 'file' ? 'file-upload' : 'json-paste'}-section`).classList.add('active');
+
+        // Update upload button state
+        this.updateUploadButtonState();
+    }
+
+    // JSON Paste Handling
+    handleJsonPaste(value) {
+        this.updateUploadButtonState();
+        
+        if (value.trim() === '') {
+            return;
+        }
+
+        // Real-time validation feedback could be added here
+        try {
+            const parsed = JSON.parse(value);
+            if (this.validateQuizStructure(parsed)) {
+                // Could add visual feedback for valid JSON
+                console.log('Valid quiz JSON detected');
+            }
+        } catch (error) {
+            // Could add visual feedback for invalid JSON
+            console.log('Invalid JSON');
+        }
+    }
+
+    updateUploadButtonState() {
+        const fileInput = document.getElementById('quiz-file-input');
+        const jsonInput = document.getElementById('json-paste-input');
+        const uploadButton = document.getElementById('upload-quiz');
+        
+        const activeTab = document.querySelector('.upload-tab.active').dataset.tab;
+        
+        if (activeTab === 'file') {
+            uploadButton.disabled = !fileInput.files.length;
+        } else {
+            const jsonValue = jsonInput.value.trim();
+            uploadButton.disabled = jsonValue === '';
+        }
+    }
+
+    // Welcome Modal Management
+    showWelcomeModal() {
+        document.getElementById('welcome-modal').classList.add('active');
+        document.getElementById('modal-overlay').classList.add('active');
+        // Prevent body scrolling when modal is open
+        document.body.style.overflow = 'hidden';
+    }
+
+    hideWelcomeModal() {
+        document.getElementById('welcome-modal').classList.remove('active');
+        document.getElementById('modal-overlay').classList.remove('active');
+        // Restore body scrolling
+        document.body.style.overflow = '';
+        // Mark as seen
+        localStorage.setItem('welcomeModalSeen', 'true');
+    }
+
+    copyPromptToClipboard() {
+        const promptText = document.getElementById('llm-prompt').value;
+        const copyBtn = document.getElementById('copy-prompt');
+        
+        navigator.clipboard.writeText(promptText).then(() => {
+            // Visual feedback
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.classList.remove('copied');
+            }, 2000);
+        }).catch(err => {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = promptText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            const originalText = copyBtn.textContent;
+            copyBtn.textContent = '✅ Copied!';
+            copyBtn.classList.add('copied');
+            
+            setTimeout(() => {
+                copyBtn.textContent = originalText;
+                copyBtn.classList.remove('copied');
+            }, 2000);
+        });
     }
 
     // Mobile Menu Management
@@ -236,22 +423,38 @@ class QuizApp {
         if (file && file.type === 'application/json') {
             document.getElementById('file-name').textContent = file.name;
             document.getElementById('file-preview').style.display = 'block';
-            document.getElementById('upload-quiz').disabled = false;
+            this.updateUploadButtonState();
         } else {
             alert('Please select a valid JSON file.');
             event.target.value = '';
+            document.getElementById('file-preview').style.display = 'none';
+            this.updateUploadButtonState();
         }
     }
 
     async uploadQuiz() {
-        const fileInput = document.getElementById('quiz-file-input');
-        const file = fileInput.files[0];
-
-        if (!file) return;
+        const activeTab = document.querySelector('.upload-tab.active').dataset.tab;
+        let quizData;
 
         try {
-            const text = await file.text();
-            const quizData = JSON.parse(text);
+            if (activeTab === 'file') {
+                // Handle file upload
+                const fileInput = document.getElementById('quiz-file-input');
+                const file = fileInput.files[0];
+
+                if (!file) return;
+
+                const text = await file.text();
+                quizData = JSON.parse(text);
+            } else {
+                // Handle JSON paste
+                const jsonInput = document.getElementById('json-paste-input');
+                const jsonText = jsonInput.value.trim();
+
+                if (!jsonText) return;
+
+                quizData = JSON.parse(jsonText);
+            }
 
             // Validate quiz structure
             if (!this.validateQuizStructure(quizData)) {
@@ -263,12 +466,16 @@ class QuizApp {
             this.quizzes.push(quizData);
             this.saveToStorage();
             this.updateQuizList();
+            this.updateMobileQuizList(); // Update mobile list too
             this.hideAddQuizModal();
 
             alert(`Quiz "${quizData.title}" added successfully!`);
         } catch (error) {
-            alert('Error reading file. Please ensure it\'s a valid JSON file.');
-            console.error('File parsing error:', error);
+            const errorMessage = activeTab === 'file' 
+                ? 'Error reading file. Please ensure it\'s a valid JSON file.'
+                : 'Error parsing JSON. Please check your JSON syntax.';
+            alert(errorMessage);
+            console.error('Quiz upload error:', error);
         }
     }
 
