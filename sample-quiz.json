@@ -1,0 +1,61 @@
+{
+  "title": "World History - Ancient Civilizations",
+  "questions": [
+    {
+      "question": "Which ancient civilization is credited with inventing the wheel?",
+      "options": [
+        "Ancient Egypt",
+        "Mesopotamia (Sumerians)",
+        "Ancient Greece",
+        "Indus Valley Civilization"
+      ],
+      "correct_answer": "Mesopotamia (Sumerians)",
+      "explanation_prompt": "Explain why the wheel was such an important invention and how it impacted ancient societies."
+    },
+    {
+      "question": "The Great Wall of China was primarily built during which dynasty?",
+      "options": [
+        "Han Dynasty",
+        "Ming Dynasty", 
+        "Qin Dynasty",
+        "Tang Dynasty"
+      ],
+      "correct_answer": "Ming Dynasty",
+      "explanation_prompt": "Describe the historical context and purpose behind the construction of the Great Wall."
+    },
+    {
+      "question": "Which ancient wonder of the world was located in Alexandria, Egypt?",
+      "options": [
+        "The Colossus of Rhodes",
+        "The Lighthouse of Alexandria",
+        "The Hanging Gardens of Babylon",
+        "The Temple of Artemis"
+      ],
+      "correct_answer": "The Lighthouse of Alexandria",
+      "explanation_prompt": "Explain the significance of the Lighthouse of Alexandria in ancient maritime navigation."
+    },
+    {
+      "question": "The Code of Hammurabi was one of the earliest examples of:",
+      "options": [
+        "Religious texts",
+        "Written laws",
+        "Mathematical formulas",
+        "Architectural blueprints"
+      ],
+      "correct_answer": "Written laws",
+      "explanation_prompt": "Discuss the importance of written legal codes in the development of civilization."
+    },
+    {
+      "question": "Which ancient Greek philosopher taught Alexander the Great?",
+      "options": [
+        "Socrates",
+        "Plato",
+        "Aristotle",
+        "Pythagoras"
+      ],
+      "correct_answer": "Aristotle",
+      "explanation_prompt": "Analyze how Aristotle's teachings might have influenced Alexander's approach to leadership and conquest."
+    }
+  ]
+}
+

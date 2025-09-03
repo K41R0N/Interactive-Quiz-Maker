@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz Study Tool</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Quiz Library</h2>
+            <button id="toggle-sidebar" class="toggle-btn">←</button>
+        </div>
+        
+        <div class="sidebar-content">
+            <button id="add-quiz-btn" class="add-quiz-btn">+ Add New Quiz</button>
+            <div id="quiz-list" class="quiz-list">
+                <!-- Quiz items will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="main-content">
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="view active">
+            <header class="dashboard-header">
+                <h1>Interactive Quiz Study Tool</h1>
+                <p class="subtitle">Track your progress and master any subject with interactive quizzes</p>
+            </header>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Current Streak</h3>
+                    <div id="current-streak" class="stat-number">0</div>
+                    <span class="stat-label">days</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Quizzes</h3>
+                    <div id="total-quizzes" class="stat-number">0</div>
+                    <span class="stat-label">completed</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Average Score</h3>
+                    <div id="average-score" class="stat-number">0%</div>
+                    <span class="stat-label">accuracy</span>
+                </div>
+            </div>
+
+            <div class="attendance-section">
+                <h2>Study Attendance</h2>
+                <div id="attendance-grid" class="attendance-grid">
+                    <!-- Attendance grid will be generated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz View -->
+        <div id="quiz-view" class="view">
+            <div class="quiz-header">
+                <button id="back-to-dashboard" class="back-btn">← Back to Dashboard</button>
+                <h2 id="quiz-title">Quiz Title</h2>
+                <div class="quiz-progress">
+                    <span id="question-counter">Question 1 of 10</span>
+                </div>
+            </div>
+
+            <div class="quiz-content">
+                <div id="question-container" class="question-container">
+                    <h3 id="question-text">Question will appear here</h3>
+                    <div id="options-container" class="options-container">
+                        <!-- Options will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="explanation-section">
+                    <label for="explanation-input">Explain your answer:</label>
+                    <textarea id="explanation-input" placeholder="Write your reasoning here..."></textarea>
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="prev-question" class="control-btn secondary" disabled>Previous</button>
+                    <button id="next-question" class="control-btn primary">Next</button>
+                    <button id="submit-quiz" class="control-btn primary" style="display: none;">Submit Quiz</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results View -->
+        <div id="results-view" class="view">
+            <div class="results-header">
+                <button id="back-to-dashboard-results" class="back-btn">← Back to Dashboard</button>
+                <h2>Quiz Results</h2>
+            </div>
+
+            <div class="results-content">
+                <div id="results-summary" class="results-summary">
+                    <div class="result-status">
+                        <div id="pass-fail-indicator" class="status-indicator">PASS</div>
+                        <h3 id="score-display">8/10 Correct</h3>
+                        <p id="percentage-display">80% Accuracy</p>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="retake-quiz" class="control-btn primary">Retake Quiz</button>
+                    <button id="review-answers" class="control-btn secondary">Review Answers</button>
+                </div>
+
+                <div id="answer-review" class="answer-review" style="display: none;">
+                    <!-- Detailed answer review will be shown here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for adding new quiz -->
+    <div id="add-quiz-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Quiz</h3>
+                <button id="close-modal" class="close-btn">×</button>
+            </div>
+            <div class="modal-body">
+                <p>Upload a JSON file containing your quiz questions:</p>
+                <div class="file-upload-area">
+                    <input type="file" id="quiz-file-input" accept=".json" />
+                    <label for="quiz-file-input" class="file-upload-label">
+                        <span>Choose JSON file</span>
+                        <small>or drag and drop here</small>
+                    </label>
+                </div>
+                <div id="file-preview" class="file-preview" style="display: none;">
+                    <p>File selected: <span id="file-name"></span></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancel-upload" class="control-btn secondary">Cancel</button>
+                <button id="upload-quiz" class="control-btn primary" disabled>Upload Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="modal-overlay" class="modal-overlay"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
