@@ -1698,10 +1698,10 @@ body {
 }
 
 .mobile-nav-logo {
-    height: 32px;
+    height: 37px; /* Increased by ~15% from 32px */
     width: auto;
-    max-width: 180px;
-    flex: 1;
+    max-width: 200px; /* Slightly increased max-width too */
+    margin-left: var(--space-2); /* Better alignment with left edge */
     object-fit: contain;
     filter: brightness(0) invert(1); /* Make logo white on dark background */
 }
@@ -1789,13 +1789,13 @@ body {
     border-radius: var(--radius-xl);
     border-left: 4px solid var(--color-primary-500);
     position: relative;
-    padding-left: var(--space-20);
+    padding-left: 5rem; /* Fixed 80px to ensure proper clearance */
 }
 
 .instruction-list li::before {
     content: counter(step-counter);
     position: absolute;
-    left: var(--space-8);
+    left: 1rem; /* Fixed 16px from left edge */
     top: var(--space-6);
     background: var(--color-primary-600);
     color: white;
@@ -2268,6 +2268,17 @@ body {
         display: block;
     }
     
+    /* Enhanced mobile logo styling */
+    .mobile-nav-content {
+        padding: var(--space-4) var(--space-4); /* Reduce right padding for better balance */
+    }
+    
+    .mobile-nav-logo {
+        height: 40px; /* Even more prominent on smaller screens */
+        margin-left: var(--space-3); /* Better visual alignment */
+        max-width: 220px; /* Allow more space on mobile */
+    }
+    
     /* Help button stays in bottom right on mobile */
     
     /* Best Practice: Safe Area Insets for Fixed Elements */
@@ -2360,11 +2371,11 @@ body {
     
     /* Better spacing for instruction numbers on mobile */
     .instruction-list li {
-        padding-left: var(--space-16); /* Reduce padding on mobile for better fit */
+        padding-left: 4rem; /* Fixed 64px for mobile - enough space for 32px circle */
     }
     
     .instruction-list li::before {
-        left: var(--space-6); /* Move number closer on mobile */
+        left: 0.75rem; /* Fixed 12px from left edge */
         width: 32px;
         height: 32px;
         font-size: var(--text-sm);
