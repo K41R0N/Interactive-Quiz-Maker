@@ -1524,7 +1524,7 @@ body {
     display: none;
     position: fixed;
     top: 20px;
-    left: 20px;
+    right: 20px;
     z-index: 1002;
     background: var(--color-primary-700);
     border: 1px solid var(--color-primary-800);
@@ -1735,9 +1735,17 @@ body {
         display: flex;
     }
     
+    /* Best Practice: Safe Area Insets for Fixed Elements */
     .main-content {
         margin-left: 0;
-        padding: 80px var(--space-4) var(--space-4);
+        padding: var(--space-4);
+        /* Use CSS env() for safe areas - industry standard */
+        padding-top: max(var(--space-4), env(safe-area-inset-top, 80px));
+    }
+    
+    /* Alternative: Use margin on first content element instead of padding */
+    .dashboard-view {
+        margin-top: 80px;
     }
     
     .main-content::before {
@@ -1774,10 +1782,7 @@ body {
         text-indent: 0;
     }
     
-    .dashboard-header {
-        margin-bottom: var(--space-12);
-        padding: var(--space-4) 0;
-    }
+
     
     .dashboard-header h1 {
         font-size: clamp(var(--text-2xl), 8vw, var(--text-4xl));

@@ -1,0 +1,94 @@
+{
+    "title": "Pneumonie: Einteilung, Pathogenese, Symptome und Diagnostik",
+    "questions": [
+      {
+        "question": "Welche Aussage beschreibt korrekt die Definition einer Pneumonie?",
+        "options": [
+          "Chronische Entzündung des Interstitiums allein",
+          "Akute oder chronische Entzündung des Lungengewebes",
+          "Nur bakteriell bedingte Entzündung der Bronchien",
+          "Entzündung der Pleura ohne Alveolenbeteiligung"
+        ],
+        "correct_answer": "Akute oder chronische Entzündung des Lungengewebes",
+        "explanation_prompt": "Erläutere, warum Pneumonie nicht nur bakteriell oder pleurare Ursache sein kann."
+      },
+      {
+        "question": "Welche Form der Pneumonie betrifft vornehmlich das Interstitium und nicht die Alveolen?",
+        "options": [
+          "Lobärpneumonie",
+          "Bronchopneumonie",
+          "Interstitielle Pneumonie",
+          "Pleuropneumonie"
+        ],
+        "correct_answer": "Interstitielle Pneumonie",
+        "explanation_prompt": "Beschreibe, wie sich die interstitielle Pneumonie pathophysiologisch von der alveolären unterscheidet."
+      },
+      {
+        "question": "Welche Ursache zählt laut Artikel NICHT zu den typischen Auslösern einer Pneumonie?",
+        "options": [
+          "Bakterien",
+          "Pilze",
+          "Magensaftaspiration",
+          "Hypertonie"
+        ],
+        "correct_answer": "Hypertonie",
+        "explanation_prompt": "Warum gehört Bluthochdruck nicht zu den Ursachen der Pneumonie?"
+      },
+      {
+        "question": "Welche Erreger sind bei ambulant erworbener, alveolärer Pneumonie am häufigsten zu erwarten?",
+        "options": [
+          "Pneumocystis jirovecii",
+          "Streptococcus pneumoniae",
+          "Cytomegalievirus",
+          "Aspergillus fumigatus"
+        ],
+        "correct_answer": "Streptococcus pneumoniae",
+        "explanation_prompt": "Erläutere die Bedeutung dieses Erregers im Vergleich zu seltenen opportunistischen Erregern."
+      },
+      {
+        "question": "Ein Patient zeigt im Röntgen ein neues Infiltrat plus Fieber > 38,5 °C. Wieviele Nebenkriterien (mindestens) reichen zur Diagnose einer Pneumonie laut Artikel?",
+        "options": [
+          "0 Nebenkriterien",
+          "1 Nebenkriterium",
+          "2 Nebenkriterien",
+          "3 Nebenkriterien"
+        ],
+        "correct_answer": "2 Nebenkriterien",
+        "explanation_prompt": "Liste typische Nebenkriterien auf und erkläre, warum sie diagnostisch wertvoll sind."
+      },
+      {
+        "question": "Warum begünstigt COPD das Entstehen einer Pneumonie laut DocCheck-Artikel?",
+        "options": [
+          "Weil die Bronchialwand verdickt ist",
+          "Durch gestörte Zilienfunktion und Umbau des Lungengewebes",
+          "Wegen erhöhter Schleimproduktion allein",
+          "Einfach durch chronische Reizwirkung"
+        ],
+        "correct_answer": "Durch gestörte Zilienfunktion und Umbau des Lungengewebes",
+        "explanation_prompt": "Erläutere, warum sowohl gestörte Reinigungsmechanismen als auch struktureller Umbau eine Rolle spielen."
+      },
+      {
+        "question": "Bei einer lobären Pneumonie ist welches klinische Zeichen typisch bei Auskultation und Perkussion?",
+        "options": [
+          "Interstitiale Rasselgeräusche ohne Klopfschalldämpfung",
+          "Feuchte Rasselgeräusche und Klopfschalldämpfung",
+          "Bronchialatmen ohne Schallveränderung",
+          "Trockene Rasselgeräusche und Hyperresonanz"
+        ],
+        "correct_answer": "Feuchte Rasselgeräusche und Klopfschalldämpfung",
+        "explanation_prompt": "Beschreibe die physiologischen Ursachen dieser Befunde."
+      },
+      {
+        "question": "Welche Pathogenese-Form beschreibt die Verbreitung einer Pneumonie über den Blutstrom?",
+        "options": [
+          "Aspiration",
+          "Aerogene Infektion",
+          "Hämatogene Aussaat",
+          "Lymphogene Ausbreitung"
+        ],
+        "correct_answer": "Hämatogene Aussaat",
+        "explanation_prompt": "Erläutere ein Beispiel, bei dem hämatogene Aussaat pathophysiologisch relevant wird."
+      }
+    ]
+  }
+  
