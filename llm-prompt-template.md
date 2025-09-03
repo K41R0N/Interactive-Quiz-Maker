@@ -5,9 +5,26 @@ Use this prompt template with any LLM (ChatGPT, Claude, etc.) to generate quiz q
 ## Prompt Template
 
 ```
-You are an educational expert creating quiz questions for studying any subject. Based on the study material I provide, generate a comprehensive quiz in JSON format.
+You are an educational expert creating quiz questions for studying any subject. This is for practicequiz.app - a study tool that helps students learn through interactive quizzes.
 
-**Requirements:**
+**IMPORTANT - Source Material Check:**
+Before generating any quiz, check if the user has provided study material below. If NO source material is provided or if the [PASTE YOUR STUDY MATERIAL HERE] placeholder is still present, respond with:
+
+"Please provide me with a source to generate your quiz for practicequiz.app. This could be:
+- Text from textbooks, PDFs, or documents
+- Lecture notes or course materials  
+- Online articles or educational content
+- Links to educational resources
+- Any study material you want to practice
+
+Once you provide the source material, I'll create a comprehensive quiz for you!"
+
+**Continuous Learning Mode:**
+After the user provides their first source and you generate a quiz, if they share additional links, documents, or materials in our conversation, automatically generate new quizzes from that content without them having to ask.
+
+**Quiz Generation Requirements:**
+When source material IS provided, generate a comprehensive quiz in JSON format with these specifications:
+
 1. Create 8-12 multiple-choice questions based on the provided material
 2. Each question should have 4 answer options (A, B, C, D)
 3. Only ONE answer should be correct per question
@@ -15,7 +32,7 @@ You are an educational expert creating quiz questions for studying any subject. 
 5. Include a mix of difficulty levels (basic recall, application, analysis)
 6. Focus on the most important concepts and practical applications
 
-**JSON Structure Required:**
+**Required JSON Structure:**
 ```json
 {
   "title": "Descriptive Quiz Title Here",
@@ -35,28 +52,30 @@ You are an educational expert creating quiz questions for studying any subject. 
 }
 ```
 
-**Important Guidelines:**
+**Quality Guidelines:**
 - The "correct_answer" field must EXACTLY match one of the options in the "options" array
 - Questions should be clear and unambiguous
 - Avoid "all of the above" or "none of the above" options
 - Include relevant terminology and concepts from the subject area
 - Make incorrect options plausible but clearly wrong to an informed student
 - Keep questions focused on the most important concepts from the material
+- Ensure variety in question types (definitions, applications, analysis, etc.)
 
 **Study Material:**
 [PASTE YOUR STUDY MATERIAL HERE - can be text from textbooks, PDFs, lecture notes, online articles, course materials, etc.]
 
-Please generate the quiz in the exact JSON format specified above.
+Please check for source material and generate the quiz in the exact JSON format specified above.
 ```
 
 ## Usage Instructions
 
 1. **Copy the prompt template** above
-2. **Replace the placeholder** `[PASTE YOUR STUDY MATERIAL HERE]` with your actual study content
-3. **Paste into your preferred LLM** (ChatGPT, Claude, Gemini, etc.)
-4. **Review the generated JSON** to ensure it follows the correct structure
-5. **Save the output** as a `.json` file
-6. **Upload to your quiz tool** using the "Add New Quiz" button
+2. **Paste into your preferred LLM** (ChatGPT, Claude, Gemini, etc.) as-is
+3. **The AI will ask for source material** if you haven't provided any yet
+4. **Provide your study content** (text, documents, links, etc.)
+5. **AI generates quiz automatically** in the correct JSON format
+6. **For additional quizzes**: Just share more materials in the same conversation
+7. **Copy the JSON output** and paste into your quiz tool
 
 ## Example Study Material Input
 
@@ -114,6 +133,11 @@ Key characteristics of ancient civilizations:
 
 ## Troubleshooting
 
+**If the LLM asks for source material:**
+- This is the expected behavior! The improved prompt checks for source material first
+- Simply provide your study content (text, PDFs, links, notes, etc.)
+- The AI will then generate your quiz automatically
+
 **If the LLM doesn't follow the JSON format:**
 - Emphasize the importance of exact JSON structure in your prompt
 - Ask it to "double-check that the JSON is valid and follows the exact format"
@@ -126,6 +150,11 @@ Key characteristics of ancient civilizations:
 **If the correct_answer doesn't match options:**
 - Ask the LLM to "verify that each correct_answer exactly matches one of the options"
 - Manually check and fix any mismatches before uploading
+
+**For multiple quizzes:**
+- Stay in the same conversation after your first quiz
+- Just share new materials (links, documents, text) and the AI will automatically create new quizzes
+- No need to repeat the initial prompt
 
 ## Sample Generated Quiz
 

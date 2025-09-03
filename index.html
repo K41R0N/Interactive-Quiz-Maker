@@ -252,9 +252,26 @@
                     <h4>📋 LLM Prompt Template</h4>
                     <p>Copy this prompt and use it with any AI to generate quiz questions:</p>
                     <div class="prompt-container">
-                        <textarea id="llm-prompt" readonly>You are an educational expert creating quiz questions for studying any subject. Based on the study material I provide, generate a comprehensive quiz in JSON format.
+                        <textarea id="llm-prompt" readonly>You are an educational expert creating quiz questions for studying any subject. This is for practicequiz.app - a study tool that helps students learn through interactive quizzes.
 
-**Requirements:**
+**IMPORTANT - Source Material Check:**
+Before generating any quiz, check if the user has provided study material below. If NO source material is provided or if the [PASTE YOUR STUDY MATERIAL HERE] placeholder is still present, respond with:
+
+"Please provide me with a source to generate your quiz for practicequiz.app. This could be:
+- Text from textbooks, PDFs, or documents
+- Lecture notes or course materials  
+- Online articles or educational content
+- Links to educational resources
+- Any study material you want to practice
+
+Once you provide the source material, I'll create a comprehensive quiz for you!"
+
+**Continuous Learning Mode:**
+After the user provides their first source and you generate a quiz, if they share additional links, documents, or materials in our conversation, automatically generate new quizzes from that content without them having to ask.
+
+**Quiz Generation Requirements:**
+When source material IS provided, generate a comprehensive quiz in JSON format with these specifications:
+
 1. Create 8-12 multiple-choice questions based on the provided material
 2. Each question should have 4 answer options (A, B, C, D)
 3. Only ONE answer should be correct per question
@@ -262,7 +279,7 @@
 5. Include a mix of difficulty levels (basic recall, application, analysis)
 6. Focus on the most important concepts and practical applications
 
-**JSON Structure Required:**
+**Required JSON Structure:**
 {
   "title": "Descriptive Quiz Title Here",
   "questions": [
@@ -280,18 +297,19 @@
   ]
 }
 
-**Important Guidelines:**
+**Quality Guidelines:**
 - The "correct_answer" field must EXACTLY match one of the options in the "options" array
 - Questions should be clear and unambiguous
 - Avoid "all of the above" or "none of the above" options
 - Include relevant terminology and concepts from the subject area
 - Make incorrect options plausible but clearly wrong to an informed student
 - Keep questions focused on the most important concepts from the material
+- Ensure variety in question types (definitions, applications, analysis, etc.)
 
 **Study Material:**
 [PASTE YOUR STUDY MATERIAL HERE - can be text from textbooks, PDFs, lecture notes, online articles, course materials, etc.]
 
-Please generate the quiz in the exact JSON format specified above.</textarea>
+Please check for source material and generate the quiz in the exact JSON format specified above.</textarea>
                         <button id="copy-prompt" class="copy-btn">📋 Copy Prompt</button>
                     </div>
                 </div>
