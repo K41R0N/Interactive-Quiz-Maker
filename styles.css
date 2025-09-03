@@ -195,6 +195,13 @@ body {
     text-shadow: 0 1px 2px rgba(26, 31, 54, 0.1);
 }
 
+.sidebar-logo {
+    height: 40px;
+    width: auto;
+    max-width: 200px;
+    object-fit: contain;
+}
+
 .toggle-btn {
     background: var(--color-primary-50);
     border: 1px solid var(--color-primary-200);
@@ -254,7 +261,7 @@ body {
     display: none;
 }
 
-.sidebar.collapsed .sidebar-header h2 {
+.sidebar.collapsed .sidebar-logo {
     display: none;
 }
 
@@ -1690,16 +1697,13 @@ body {
     max-width: 100%;
 }
 
-.mobile-nav-title {
-    font-family: var(--font-family-serif);
-    font-size: var(--text-lg);
-    font-weight: 600;
-    color: white;
-    margin: 0;
+.mobile-nav-logo {
+    height: 32px;
+    width: auto;
+    max-width: 180px;
     flex: 1;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Make logo white on dark background */
 }
 
 /* Help Button - Bottom Right */
@@ -1979,6 +1983,36 @@ body {
     font-size: var(--text-sm);
     color: var(--color-gray-600);
     line-height: 1.4;
+}
+
+/* Footer */
+.app-footer {
+    margin-top: var(--space-16);
+    padding: var(--space-8) 0;
+    text-align: center;
+    border-top: 1px solid var(--color-gray-200);
+    background: linear-gradient(135deg, 
+        rgba(250, 252, 255, 0.6) 0%, 
+        rgba(255, 255, 255, 0.3) 100%);
+}
+
+.app-footer p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    font-family: var(--font-family-primary);
+}
+
+.app-footer a {
+    color: var(--color-primary-700);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--transition-normal);
+}
+
+.app-footer a:hover {
+    color: var(--color-primary-800);
+    text-decoration: underline;
 }
 
 /* Mobile Quiz Menu */
@@ -2334,6 +2368,12 @@ body {
         width: 32px;
         height: 32px;
         font-size: var(--text-sm);
+    }
+    
+    /* Footer mobile adjustments */
+    .app-footer {
+        margin-top: var(--space-12);
+        padding: var(--space-6) var(--space-4);
     }
     
     #question-text {
