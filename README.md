@@ -1,4 +1,4 @@
-# Interactive Quiz Study Tool
+# Interactive-Quiz-Maker
 
 A comprehensive web-based quiz application designed for studying any subject. Features a GitHub-style attendance tracking system, interactive quiz management, and JSON-based question import functionality.
 
