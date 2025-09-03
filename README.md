@@ -8,11 +8,11 @@ Transform any study material into interactive quizzes using AI. Built for studen
 
 ## 🚀 Quick Start
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/your-username/Interactive-Quiz-Maker)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/k41r0n/Interactive-Quiz-Maker)
 
 **Or run locally:**
 ```bash
-git clone https://github.com/your-username/Interactive-Quiz-Maker.git
+git clone https://github.com/k41r0n/Interactive-Quiz-Maker.git
 cd Interactive-Quiz-Maker
 python3 -m http.server 8000
 # Open http://localhost:8000
